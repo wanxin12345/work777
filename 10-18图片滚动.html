@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>10-18图片滚动.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script type="text/javascript">
+window.onload=function(){
+	//图片滚动
+	var oBox6 = document.getElementById('box6');
+	var oUp6 = document.getElementById('up6');
+	var oDown6 = document.getElementById('down6');
+	var oImg6 = document.getElementById('img6');
+	
+	var count6 = 0;
+	var timer6 = null;
+	oUp6.onmouseover = function(){
+		clearInterval(timer6);
+		timer6 = setInterval(function(){
+			count6-=10;
+			if(count6 <= -468){
+				clearInterval(timer6);
+				count6 = -468;	
+			}
+			oImg6.style.top = count6 + 'px';		
+		},30);
+	}
+	
+	oUp6.onmouseout = function(){
+		clearInterval(timer6);	
+	}
+	
+	oDown6.onmouseover = function(){
+		timer6 = setInterval(function(){
+			count6+=10;
+			if(count6 >= 0){
+				clearInterval(timer6);
+				count6 = 0;	
+			}
+			oImg6.style.top = count6 + 'px';	
+		},30);	
+	}
+	
+	oDown6.onmouseout = function(){
+		clearInterval(timer6);	
+	}
+
+	
+	
+}
+</script>
+<style>
+#box6 {
+	width: 300px;
+	height: 300px;
+	border: #000 1px solid;
+	margin: 100px auto;
+	overflow: hidden;
+	position: relative;
+}
+#box6 img {
+width:300px;
+height:700px;
+	position:absolute;
+	left: 0;
+	top: 0;
+}
+
+#box6 a {
+	display: block;
+	width: 300px;
+	height: 150px;
+	z-index: 999;
+	left: 0;
+	background: red;
+	position: absolute;
+	opacity: 0;
+}
+
+#up6 {
+	top: 0;
+}
+
+#down6 {
+	bottom: 0;
+}
+
+</style>
+
+  </head>
+  
+  <body>
+    <div id="box6">
+	<a href="javascript:void(0)" id="up6"></a>
+	<img src="莉.jpg" id="img6" />
+	<a href="javascript:void(0)" id="down6"></a>
+</div>
+  </body>
+</html>

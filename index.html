@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>10-18.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<style type="text/css">
+body{
+    background: #000;
+	color: #fff;
+	font-size:50px;
+	text-align: center;
+	padding-top: 300px;
+
+}
+#box {
+	width: 100%;
+	height: 400px;
+	background: black;
+	color: #fff;
+	font-size:40px;
+	line-height:400px;
+	text-align:center;
+}
+
+p {
+	width: 65px;
+	height: 65px;
+	background: red;
+	color: #fff;
+	text-align: center;
+	line-height: 50px;
+	float: left;
+	margin-right:5px;
+	border-radius: 50%;
+	font-family:"微软雅黑";
+}
+</style>
+<script type="text/javascript">
+function addZero(n){
+	/*return n<10?'0'+n:''+n;*/
+
+      return n<10?'0'+n:''+n;
+}
+window.onload=function(){
+	var aImg=document.getElementsByTagName('img');
+	clock();
+	setInterval(clock,1000);
+	function clock(){
+    var oDate=new Date();
+	var oHour=oDate.getHours();
+	var oMin=oDate.getMinutes();
+	var oSec=oDate.getSeconds();
+	var str=addZero(oHour)+addZero(oMin)+addZero(oSec);
+	for(var i=0;i<aImg.length;i++){
+    aImg[i].src="img/"+str.charAt(i)+".png";
+	}
+	}
+	//本月第一天是周几?
+	  var oDate1=new Date();//当前系统时间
+	   oDate1.setDate(1);//把当前系统时间设置为本月的第一天
+	   /*alert(oDate1);*/
+	   alert("本月第一天是周:"+oDate1.getDay())//弹出本月第一天是周几
+
+    //倒计时
+    var oBox=document.getElementById("box");
+    var oDate2=new Date();
+    oDate2.setFullYear(2017,11,11);
+    oDate2.setHours(0,0,0,0);
+    function countDown(){
+    	//未来时间减去现在的时间
+    	var ms2=oDate2.getTime()-new Date().getTime();
+    	//毫秒转换成秒
+    	var oSec2=parseInt(ms2/1000);
+    	//秒转换成天
+    	var oDay2=parseInt(oSec2/86400);
+    	//不到一天剩下的秒数
+    	oSec2%=86400;
+    	//转换成小时
+    	var oHour2=parseInt(oSec2/60);
+    	//不到一小时剩下的秒数
+    	oSec2%=3600;
+    	//转换成分钟
+    	var oMin2=parseInt(oSec2/60);
+    	oBox.innerHTML="距离2017年11月11日还有:"+oDay2+"天"+oHour2+"时"+oMin2+"分"+oSec2+"秒";
+    }
+countDown();
+setInterval(countDown,1000);
+
+
+//短信倒计时
+var oBtn = document.getElementById('btn');
+	var count = 5;
+	var timer=null;
+	oBtn.onclick = function(){
+		timer=setInterval(function(){
+		count--;
+		oBtn.value = count + '秒后重新发送';
+		if(count==0){
+			oBtn.value='点击重新发送';
+			clearInterval(timer);
+			count=5;
+			oBtn.disabled=false;
+		}
+		},1000)
+	}
+
+	//求出本月有多少天?
+	var oDate3=new Date();
+	oDate3.setMonth(oDate3.getMonth()+1);
+	oDate3.setDate(0);//本月的最后一天
+	alert((oDate3.getMonth()+1)+"月有"+oDate3.getDate()+"天")
+	
+	//求和
+	function sum(a,b,c,d){//形式上的参数
+	//alert(arguments.length);
+	var res = 0;
+	for(var i = 0; i < arguments.length; i++){
+		res+=arguments[i];
+	}
+	return res;
+}
+alert("1+2+3+4+5="+sum(1,2,3,4,5));//实际传递的参数;
+	
+   //数字时钟
+   var oBox4 = document.getElementById('box4');
+	clock4();
+	setInterval(clock4,1000);
+	function clock4(){
+		var oDate4 = new Date();
+		var oYear4 = oDate4.getFullYear();
+		var oMon4 = oDate4.getMonth();
+		var oDay4 = oDate4.getDate();
+		var oHour4 = oDate4.getHours();
+		var oMin4 = oDate4.getMinutes();
+		var oSec4 = oDate4.getSeconds();
+		var oWeek4 = oDate4.getDay();
+		if(oWeek4 == 0)oWeek4 = '星期日';
+		if(oWeek4 == 1)oWeek4 = '星期一';
+		if(oWeek4 == 2)oWeek4 = '星期二';
+		if(oWeek4 == 3)oWeek4 = '星期三';
+		if(oWeek4 == 4)oWeek4 = '星期四';
+		if(oWeek4 == 5)oWeek4 = '星期五';
+		if(oWeek4 == 6)oWeek4 = '星期六';
+		
+		oBox4.innerHTML = oYear4 + '年' + addZero(oMon4 + 1) + '月' + addZero(oDay4) + '日' + addZero(oHour4) + '时' + addZero(oMin4) + '分' + addZero(oSec4) + '秒' + oWeek4;	
+	} 
+   
+	//双色球
+	var oBtn5= document.getElementById('btn5');
+	var aP5 = document.getElementsByTagName('p');
+	var timer5 = null;
+	function show(){
+		clearInterval(timer5);
+		timer5 = setInterval(function(){
+			var arr5 = [];
+			while(arr5.length < 6){
+				var n = addZero(rnd(1,34));
+				if(findInArr(n,arr5) == false){
+					arr5.push(n);	
+				}	
+			}
+			for(var i = 0; i < aP5.length; i++){
+				aP5[i].innerHTML = arr5[i];	
+			}
+			setTimeout(function(){
+				clearInterval(timer5);
+			},300);		
+		},30);
+	}
+	show();
+	oBtn5.onclick = show;
+	
+	
+	
+}
+function findInArr(n,arr5){
+	for(var i = 0; i < arr5.length; i++){
+		if(n == arr5[i])return true;	
+	}
+	return false;
+}
+
+function rnd(n,m){
+	return parseInt(Math.random() * (m - n) + n);
+}
+
+/*str.charAt(i):获取字符串中的某一个;*/
+
+</script>
+
+
+  </head>
+  
+  <body>
+  <input type="button" value="点击随机变幻双色球数字" id="btn5" />
+<p></p><p></p><p></p><p></p><p></p><p></p>
+  <br>
+  <!--图片时钟-->
+  <img src="img/0.png">
+  <img src="img/0.png">:
+  <img src="img/0.png">
+  <img src="img/0.png">:
+  <img src="img/0.png">
+  <img src="img/0.png">
+  <div id="box">
+  距离2017年11月11日还有:xx天xx分xx秒
+  </div>
+  <input type="button" value="点击发送验证码" id="btn"><br>
+   <div id="box4">
+ xx年xx月xx日 xx时xx分xx秒 星期xx
+  </div><br>
+ 
+  
+</body>
+</html>
